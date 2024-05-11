@@ -15,12 +15,11 @@ export const UsersList = ({ users = [] , handlerRemoveUser,handlerUserSelectForm
             </thead>
             <tbody>
                 {
-                    users.map(({id, username, email, password}) => (
+                    users.map(({id, username, email}) => (
                        <UserRow 
                        id={id} 
                        username={username} 
                        email={email} 
-                       password={password}
                        key={id}
                        handlerRemoveUser={handlerRemoveUser}
                        handlerUserSelectForm={handlerUserSelectForm}/>
