@@ -10,9 +10,12 @@ export const UsersApp = () => {
         users,
         userSelected,
         initialUserForm,
+        visibleForm,
         handlerAddUser,
         handlerRemoveUser,
         handlerUserSelectForm,
+        handlerOpenForm,
+        handlerCloseForm,
     } = useUsers();
 
     return (
@@ -20,22 +23,29 @@ export const UsersApp = () => {
             <h2>Users App</h2>
             <div className="row">
 
-                <div className="col">
-                    <UserForm
+                
+                    {!visibleForm || <div className="col"><UserForm
                         handlerAddUser={handlerAddUser}
                         initialUserForm={initialUserForm}
                         userSelected={userSelected}
-                    />
-                </div>
+                        handlerCloseForm={handlerCloseForm}
+                    /></div>}
+                    
+                
                 <div className="col">
-                    {users.length === 0
-                        ? <div className="alert alert-warning">No hay usuarios en el sistema!</div>
-                        :
-                        <UsersList
-                            users={users}
-                            handlerRemoveUser={handlerRemoveUser} 
-                            handlerUserSelectForm={handlerUserSelectForm}/>
-
+                    {visibleForm || <button className="btn btn-primary my-2" onClick={handlerOpenForm}>
+                        Nuevo Usuario
+                    </button>}
+                    
+                    {
+                        users.length === 0
+                            ? <div className="alert alert-warning">No hay usuarios en el sistema!</div>
+                            :
+                            <UsersList
+                                users={users}
+                                handlerRemoveUser={handlerRemoveUser}
+                                handlerUserSelectForm={handlerUserSelectForm}
+                                 />
                     }
                 </div>
             </div>
