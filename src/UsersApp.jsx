@@ -3,6 +3,7 @@ import { LoginPages } from "./auth/pages/LoginPage";
 import { UsersPage } from "./pages/UserPages";
 import { loginReducer } from "./auth/reducers/loginReducer";
 import Swal from "sweetalert2";
+import { Navbar } from "./components/layout/Navbar";
 
 const initialLogin = JSON.parse(sessionStorage.getItem('login')) || {
     isAuth: false,
@@ -11,10 +12,10 @@ const initialLogin = JSON.parse(sessionStorage.getItem('login')) || {
 
 export const UsersApp = () => {
 
-    const [login, dispatch] = useReducer(loginReducer,initialLogin);
-    const handlerLogin = ({username, password}) => {
-        if(username ==='admin' && password === '12345'){
-            const user = {username: 'admin'};
+    const [login, dispatch] = useReducer(loginReducer, initialLogin);
+    const handlerLogin = ({ username, password }) => {
+        if (username === 'admin' && password === '12345') {
+            const user = { username: 'admin' };
             dispatch({
                 type: 'login',
                 payload: user,
@@ -24,13 +25,28 @@ export const UsersApp = () => {
                 user,
             }));
         } else {
-            Swal.fire("Error login",'Username o password invalidos', 'error');
+            Swal.fire("Error login", 'Username o password invalidos', 'error');
         }
+    }
+    const handlerLogout = () => {
+        dispatch({
+            type: 'logout',
+        });
+        sessionStorage.removeItem('login');
     }
 
     return (
         <>
-        {login.isAuth ? <UsersPage/> : <LoginPages handlerLogin={handlerLogin}/>}
+            {login.isAuth ?
+                (
+                    <>
+                        <Navbar handlerLogout={handlerLogout} 
+                        login={login}/>
+                        <UsersPage />
+                    </>
+                )
+
+                : <LoginPages handlerLogin={handlerLogin} />}
         </>
     );
 }
