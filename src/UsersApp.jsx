@@ -3,23 +3,29 @@ import { LoginPages } from "./auth/pages/LoginPage";
 import { UsersPage } from "./pages/UserPages"
 import { Navbar } from "./components/layout/Navbar";
 import { useAuth } from "./auth/hooks/useAuth";
+import { Navigate, Route, Routes } from "react-router-dom";
+import { UserRoutes } from "./routes/UserRoutes";
 
 export const UsersApp = () => {
 
-    const {login, handlerLogin, handlerLogout} = useAuth();    
+    const { login, handlerLogin, handlerLogout } = useAuth();
 
     return (
-        <>
+        <Routes>
             {login.isAuth ?
                 (
                     <>
-                        <Navbar handlerLogout={handlerLogout} 
-                        login={login}/>
-                        <UsersPage />
+                        <Route path="/*" element={<UserRoutes
+                            login={login} handlerLogout={handlerLogout} />} />
                     </>
                 )
 
-                : <LoginPages handlerLogin={handlerLogin} />}
-        </>
+                :
+                <>
+                    <Route path="/login" element={<LoginPages handlerLogin={handlerLogin} />} />
+                    <Route path="/*" element={<Navigate to="/login"/>}/>
+                </>
+            }
+        </Routes>
     );
 }

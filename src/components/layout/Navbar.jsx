@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 export const Navbar = ({ handlerLogout, login }) => {
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -6,18 +8,29 @@ export const Navbar = ({ handlerLogout, login }) => {
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-                <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <div className="collapse navbar-collapse" id="navbarNav">
+                    <span className="nav-item nav-link text-primary mx-3">
+                        <ul className="navbar-nav">
+                            <li className="nav-item">
+                                <NavLink className="nav-link" to="/users">
+                                    Usuarios
+                                </NavLink>
+                            </li>
+                        </ul>
+                    </span>
+                </div>
+
+                <div className="collapse navbar-collapse justify-content-end" id="navbarNavLogout">
                     <span className="nav-item nav-link text-primary mx-3">
                         {login.user?.username}
                     </span>
                     <button
-                    onClick={handlerLogout}
-                    className="btn btn-outline-success"
-                    type="button">
+                        onClick={handlerLogout}
+                        className="btn btn-outline-success"
+                        type="button">
                         Logout
                     </button>
                 </div>
-
             </div>
         </nav>
     );
