@@ -1,7 +1,4 @@
-import { useReducer, useState } from "react";
 import { LoginPages } from "./auth/pages/LoginPage";
-import { UsersPage } from "./pages/UserPages"
-import { Navbar } from "./components/layout/Navbar";
 import { useAuth } from "./auth/hooks/useAuth";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { UserRoutes } from "./routes/UserRoutes";
