@@ -23,9 +23,8 @@ export const save = async ({ username, password, email }) => {
             }
         );
     } catch (error) {
-        console.error(error);
+        throw error;
     }
-    return null;
 }
 export const update = async ({ id, username, email }) => {
 
@@ -37,7 +36,7 @@ export const update = async ({ id, username, email }) => {
             }
         );
     } catch (error) {
-        console.error(error);
+        throw error;
     }
     return null;
 }
